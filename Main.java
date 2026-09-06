@@ -1,24 +1,23 @@
-public class Main
+public class Main 
 {
 
     private static final int NUMBER_OF_THREADS = 2;
     private static final int INCREMENTS_PER_THREAD = 1000000;
     private static int counter = 0;
 
-    public static void main(String[] args) throws InterruptedException
+    public static void main(String[] args) throws InterruptedException 
     {
 
-        TASLock lock = new TASLock();
-
+        TTASLock lock = new TTASLock(); // your optimised lock, swapped in for testing
         Thread[] threads = new Thread[NUMBER_OF_THREADS];
         long startTime = System.nanoTime();
 
-        for(int i = 0; i < NUMBER_OF_THREADS; i++)
+        for(int i = 0; i < NUMBER_OF_THREADS; i++) 
         {
 
             threads[i] = new Thread(() -> {
 
-                for(int j = 0; j < INCREMENTS_PER_THREAD; j++)
+                for(int j = 0; j < INCREMENTS_PER_THREAD; j++) 
                 {
                     lock.lock();
                     counter++;
@@ -29,7 +28,7 @@ public class Main
             threads[i].start();
         }
 
-        for(Thread thread : threads)
+        for(Thread thread : threads) 
         {
             thread.join();
         }
