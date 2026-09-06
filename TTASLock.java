@@ -1,7 +1,7 @@
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class TTASLock {
+public class TTASLock implements Lock {
     
 private final AtomicBoolean locked = new AtomicBoolean(false);
 
