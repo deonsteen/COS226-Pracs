@@ -1,0 +1,52 @@
+public class Bidder implements Runnable {
+    private final Auction auction;
+    private final Lock lock;
+    private final int bidderId;
+    private final int iterations;
+    private final double bidIncrement;
+
+    private int winCount = 0;
+
+    public Bidder (Auction auction, Lock lock, int bidderId, int iterations, double bidIncrement)
+    {
+        this.auction = auction;
+        this.lock = lock;
+        this.bidderId =bidderId;
+        this.iterations =iterations;
+        this.bidIncrement = bidIncrement;
+    }
+    
+    @Override 
+    public void run()
+    {
+        for (int i= 0; i< iterations; i++)
+        {
+            lock.lock();
+            try
+            {
+                double currentHighest = auction.getHighestBid();
+                double newBid = currentHighest + bidIncrement;
+                
+                auction.placeBid(bidderId, newBid);
+                winCount++;
+            }
+            finally
+            {
+                lock.unlock();
+            }
+        }
+    }
+
+
+
+    public int getBidderId()
+    {
+        return bidderId;
+    }
+
+
+    public int getWinCount()
+    {
+        return winCount;
+    }
+}
