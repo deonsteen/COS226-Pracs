@@ -38,18 +38,17 @@ import java.util.concurrent.atomic.AtomicReference;
             QNode qnode = myNode.get();
 
             if (qnode.next == null) {
-                // We don't know of a successor yet - try to mark the queue as empty.
+                // We don't know of a successor yet; //try to mark the queue as empty.
                 if (tail.compareAndSet(qnode, null)) {
-                    return; // Succeeded: we really were last in line.
+                    return;
                 }
-                // CAS failed: another thread is mid-way through enqueuing behind us.
-                // Wait for it to finish setting predecessor.next = qnode.
+
                 while (qnode.next == null) {
                     // Busy-wait
                 }
             }
 
-            // Hand the lock off directly to our successor.
+            // Hand the lock off directly to our successor
             qnode.next.locked = false;
             qnode.next = null; // help GC, reset for reuse
         }
