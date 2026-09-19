@@ -1,4 +1,4 @@
-public class MCSLock {
+
 import java.util.concurrent.atomic.AtomicReference;
 
     public class MCSLock implements Lock {
@@ -8,32 +8,29 @@ import java.util.concurrent.atomic.AtomicReference;
             volatile QNode next = null;
         }
 
-        // Tail of the queue. null means the lock is currently free.
+        // Tail; (null means the lock is currently free)
         private final AtomicReference<QNode> tail = new AtomicReference<>(null);
 
-        // Each thread needs its own node to track its place in the queue.
-        // ThreadLocal means thread A's node never gets mixed up with thread B's.
+        // Each thread gets its own node to track its pos
+        // ThreadLocal means thread A's node never gets mixed up with thread B's
         private final ThreadLocal<QNode> myNode = ThreadLocal.withInitial(QNode::new);
 
         @Override
         public void lock() {
             QNode qnode = myNode.get();
-            qnode.next = null;    // reset in case this thread's node is being reused
-            qnode.locked = true;  // assume we'll have to wait, until we know otherwise
+            qnode.next = null;    // reset in case this threads node is being reused
+            qnode.locked = true;  // assume well have to wait
 
-            QNode predecessor = tail.getAndSet(qnode); // atomically join the back of the queue
+            QNode predecessor = tail.getAndSet(qnode); // atomically join at the back
 
             if (predecessor != null) {
-                // Someone was already ahead of us in the queue - link ourselves in
+                // if someone was already ahead of us in the que
                 predecessor.next = qnode;
 
-                // Spin on OUR OWN node's field, not a shared variable -
-                // this is the whole point of MCS: no contention on one hot memory location.
                 while (qnode.locked) {
                     // Busy-wait
                 }
             }
-            // Else: queue was empty, we grabbed the lock immediately.
         }
 
         @Override
@@ -57,5 +54,5 @@ import java.util.concurrent.atomic.AtomicReference;
             qnode.next = null; // help GC, reset for reuse
         }
     }
-}
+
 
