@@ -14,8 +14,7 @@ public class TTASLock implements Lock{
             //Spin while lock looks held. .get() cheaper than compare and set method 
             while (state.get())
             {
-                
-                //Busy-Wait
+               //busy-wait
             }
         
             //attempt the real atomic acquisition.

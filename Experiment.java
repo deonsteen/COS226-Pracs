@@ -26,6 +26,7 @@ public class Experiment
                 {
                     for (int run = 1; run <= REPEATS; run++)
                     {
+                        System.out.println("Starting: lock=" + lockName + " threads=" + threads + " run=" + run + "...");
                         runOnce(csv, lockName, threads, run);
                     }
                 }
@@ -74,6 +75,7 @@ public class Experiment
                 winCounts.toString()
         ));
         csv.write("\n");
+        csv.flush();
     }
 
     private static Lock createLock(String name)

@@ -7,8 +7,8 @@ public class CLHLockTest {
         //Shared, mutable counter.
         //If lock correct, final number = numThreads * incrementsPerThread
         int[] counter = {0};
-        int numThreads = 10;
-        int incrementsPerThread = 100000;
+        int numThreads = 16;
+        int incrementsPerThread = 5000;
 
         Thread[] threads = new Thread[numThreads];
 

@@ -30,7 +30,7 @@ public class CLHLock implements Lock
         //thread spins on a different memory location.
         while (pred.locked)
         {
-            //Busy-wait
+            Thread.yield(); // let the OS scheduler prioritize the actual lock holder instead of wasting cycles spinning
         }
     }
 
