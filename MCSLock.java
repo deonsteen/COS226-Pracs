@@ -35,7 +35,7 @@ public class MCSLock implements Lock {
                 return;
             }
             while (qnode.next == null) {
-                Thread.yield();
+                // busy-wait
             }
         }
 

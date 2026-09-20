@@ -28,9 +28,8 @@ public class CLHLock implements Lock
 
         //Spin on my predecessor's node (not a shared global), so each waiting
         //thread spins on a different memory location.
-        while (pred.locked)
-        {
-            Thread.yield(); // let the OS scheduler prioritize the actual lock holder instead of wasting cycles spinning
+        while (pred.locked) {
+            // busy-wait
         }
     }
 
