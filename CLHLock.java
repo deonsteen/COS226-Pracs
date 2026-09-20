@@ -6,7 +6,7 @@ public class CLHLock implements Lock
     {
         volatile boolean locked = false;
     }
-
+    //test
     //Tail of the implicit queue. Starts with a dummy unlocked node so the first
     //thread to call lock() sees an unlocked predecessor and returns immediately.
     private final AtomicReference<QNode> tail = new AtomicReference<>(new QNode());
