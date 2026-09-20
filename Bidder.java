@@ -6,6 +6,7 @@ public class Bidder implements Runnable {
     private final double bidIncrement;
 
     private int winCount = 0;
+    private long totalWaitNanos = 0; //added
 
     public Bidder (Auction auction, Lock lock, int bidderId, int iterations, double bidIncrement)
     {
@@ -21,7 +22,9 @@ public class Bidder implements Runnable {
     {
         for (int i= 0; i< iterations; i++)
         {
+            long waitStart = System.nanoTime(); //added
             lock.lock();
+            totalWaitNanos += (System.nanoTime() - waitStart);  //added
             try
             {
                 double currentHighest = auction.getHighestBid();
