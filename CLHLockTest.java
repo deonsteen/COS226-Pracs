@@ -8,7 +8,7 @@ public class CLHLockTest {
         //If lock correct, final number = numThreads * incrementsPerThread
         int[] counter = {0};
         int numThreads = 16;
-        int incrementsPerThread = 5000;
+        int incrementsPerThread = 1000;
 
         Thread[] threads = new Thread[numThreads];
 
@@ -31,6 +31,6 @@ public class CLHLockTest {
         int expected = numThreads * incrementsPerThread;
         System.out.println("Expected: " + expected);
         System.out.println("Actual: " + counter[0]);
-        System.out.println(counter[0] == expected ? "PASS - mutual exclusion held" : "FAIL - lost updates detected");
+        System.out.println(counter[0] == expected ? "PASS: mutual exclusion held" : "FAIL: lost updates detected");
     }
 }

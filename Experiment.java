@@ -9,7 +9,7 @@ import java.io.IOException;
 public class Experiment
 {
     private static final int[] THREAD_COUNTS = {2, 4, 8, 16};
-    private static final int ITERATIONS_PER_THREAD = 50_000;
+    private static final int ITERATIONS_PER_THREAD = 1000;
     private static final int REPEATS = 3;
     private static final String[] LOCK_NAMES = {"TTAS", "CLH", "MCS"};
     private static final String OUTPUT_FILE = "results.csv";
