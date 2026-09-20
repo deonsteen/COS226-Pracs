@@ -18,7 +18,7 @@ public class Experiment
     {
         try (FileWriter csv = new FileWriter(OUTPUT_FILE))
         {
-            csv.write("lock,threads,iterationsPerThread,run,executionTimeNanos,totalBids,finalHighestBid,winCounts\n");
+            csv.write("lock,threads,iterationsPerThread,run,executionTimeNanos,totalBids,finalHighestBid,avgWaitNanos,winCounts\n");
 
             for (int threads : THREAD_COUNTS)
             {
@@ -63,14 +63,15 @@ public class Experiment
             lockName, threads, run, runner.getExecutionTimeNanos() / 1_000_000.0, totalBids, auction.getHighestBid());
 
         csv.write(String.join(",",
-            lockName,
-            String.valueOf(threads),
-            String.valueOf(ITERATIONS_PER_THREAD),
-            String.valueOf(run),
-            String.valueOf(runner.getExecutionTimeNanos()),
-            String.valueOf(totalBids),
-            String.valueOf(auction.getHighestBid()),
-            winCounts.toString()
+                lockName,
+                String.valueOf(threads),
+                String.valueOf(ITERATIONS_PER_THREAD),
+                String.valueOf(run),
+                String.valueOf(runner.getExecutionTimeNanos()),
+                String.valueOf(totalBids),
+                String.valueOf(auction.getHighestBid()),
+                String.valueOf(runner.getAverageWaitNanos()),
+                winCounts.toString()
         ));
         csv.write("\n");
     }
