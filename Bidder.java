@@ -41,7 +41,6 @@ public class Bidder implements Runnable {
     }
 
 
-
     public int getBidderId()
     {
         return bidderId;
@@ -51,5 +50,10 @@ public class Bidder implements Runnable {
     public int getWinCount()
     {
         return winCount;
+    }
+
+    public long getTotalWaitNanos() //added
+    {
+        return totalWaitNanos;
     }
 }
