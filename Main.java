@@ -4,7 +4,7 @@ public class Main {
     {
 
         CoarseList list = new CoarseList();
-        /*FineList list = new FineList();*/
+        FineList list = new FineList();
 
         int numberOfThreads = 2;
         int operationsPerThread = 1000;
