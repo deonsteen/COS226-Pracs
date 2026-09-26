@@ -14,7 +14,6 @@ public class FineList
 
     public boolean add(int value)
     {
-        // Hand-over-hand locking:
         head.lock.lock();
         Node pred = head;
         try
