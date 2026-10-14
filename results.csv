@@ -1,0 +1,8 @@
+CSV:
+queue,producers,consumers,jobs,time_s,throughput,empty_polls,correct
+bounded,4,4,120000,0.0382,3142809,0,true
+lockfree,4,4,120000,0.0441,2718068,40703,true
+bounded,6,2,120000,0.0418,2873047,0,true
+lockfree,6,2,120000,0.0411,2921334,7880,true
+bounded,2,6,120000,0.0426,2817822,0,true
+lockfree,2,6,120000,0.0666,1802733,345903,true

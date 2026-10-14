@@ -1,6 +1,13 @@
 Setup: 120,000 jobs in total, bounded queue capacity 100, each row averaged over 5 runs after a warm-up. Run on [your CPU and number of cores].
 
-[paste your table here]
+Queue      Producers Consumers     Time (s) Throughput (j/s)    Empty polls   Correct
+bounded            4         4       0.0382          3142809              0       yes
+lockfree           4         4       0.0441          2718068          40703       yes
+bounded            6         2       0.0418          2873047              0       yes
+lockfree           6         2       0.0411          2921334           7880       yes
+bounded            2         6       0.0426          2817822              0       yes
+lockfree           2         6       0.0666          1802733         345903       yes
+
 
 Observations: The bounded queue was consistent across all three workloads (about 2.8-3.1 million jobs/s). The bounded queue was slightly faster in the balanced case (3.14M vs 2.72M jobs/s). In the producer-heavy case the two queues performed essentially the same (2.87M vs 2.92M).
 
