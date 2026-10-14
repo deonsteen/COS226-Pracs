@@ -1,0 +1,9 @@
+Total workload was 120,000 jobs, bounded capacity 100, each row averaged over 5 runs.
+
+The bounded queue was steady across all three workloads (about 2.8-3.1 million jobs/s). The lock-free queue was about the same as the bounded queue in the balanced and producer-heavy cases (4P/4C and 6P/2C). With 2 producers and 6 consumers it was much slower (1.8 million vs 2.8 million jobs/s).
+
+The reason is the empty-queue spinning. The lock-free deq() returns null when the queue is empty, so idle consumers keep retrying. The empty-poll count was about 346,000 in the 2P/6C case, compared with about 8,000 in the producer-heavy case. Those spinning consumers waste CPU time and contend with the two producers. In the bounded queue, idle consumers sleep on the notEmpty condition and use no CPU.
+
+With many producers (6P/2C) the lock-free queue never makes producers wait, since it is unbounded, but its advantage over the bounded queue was small in our results.
+
+The lock-free queue is therefore not simply “faster”. Its performance depends on how the workload is balanced, and it does worst when consumers outnumber producers.
